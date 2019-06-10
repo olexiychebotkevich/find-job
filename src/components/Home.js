@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Modal.css';
 import classnames from 'classnames'
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 class Home extends Component {
     state = { 
@@ -9,39 +10,36 @@ class Home extends Component {
      }
 
      componentDidMount(){
-         const url ='https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11';
-        axios.get(url).then(
-            (res)=>{
-                console.log('----- response privat bank -----',res.data);
-            },
-            (err)=>{
-                console.log('Error upload data------',err.response.data);
-            }
-        )
-        //  setTimeout(
-        //      function(){
-        //       console.log("Completed!!!");
-        //       this.setState({loading:false});
-        //      }.bind(this),
-        //      3000
-        //  );
+    
          
+     }
+
+
+
+     btnIncrementConter=(e)=>{
+        e.preventDefault();
+        this.props.dispatch({type:"INCREMENT"})
+        console.log('Hello click');
+        
      }
     render() { 
         const {loading}=this.state; 
-        console.log('----Render component Home-----',this.state);
-        return ( 
+        const{count}=this.props;
+        console.log('----Render component Home-----',this.props);
+        return(
             <div>
-                <h1>Hello Peter</h1>
-                <div className={classnames("modal",{"open":loading})}>
-                    <div className="position-center">
-                    <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-                    <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
+            <p>Home page {count}</p>
+            <button className="btn btn-succes" onClick={this.btnIncrementConter}>Counter++</button>
             </div>
-         );
+        );
     }
 }
+const mapStateProps=(state)=>
+{
+    console.log('----Render store connect-----',state);
+    return{
+        count:state.counter.counterStore
+    };
+}
  
-export default Home;
+export default connect(mapStateProps)(Home);
