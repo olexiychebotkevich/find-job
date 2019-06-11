@@ -22,6 +22,14 @@ class Home extends Component {
         console.log('Hello click');
         
      }
+
+
+     btnDecrementConter=(e)=>{
+        e.preventDefault();
+        this.props.dispatch({type:'DECREMENT'})
+        console.log('Hello click');
+        
+     }
     render() { 
         const {loading}=this.state; 
         const{count}=this.props;
@@ -29,7 +37,8 @@ class Home extends Component {
         return(
             <div>
             <p>Home page {count}</p>
-            <button className="btn btn-succes" onClick={this.btnIncrementConter}>Counter++</button>
+            <button className="btn btn-success" onClick={this.btnIncrementConter}>Counter++</button>
+            <button className="btn btn-danger" onClick={this.btnDecrementConter}>Counter--</button>
             </div>
         );
     }
