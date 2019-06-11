@@ -3,6 +3,7 @@ import './Modal.css';
 import classnames from 'classnames'
 import axios from 'axios';
 import {connect} from 'react-redux';
+import Notifications,{notify } from './Notifications'
 
 class Home extends Component {
     state = { 
@@ -36,7 +37,9 @@ class Home extends Component {
         console.log('----Render component Home-----',this.props);
         return(
             <div>
+            <Notifications/>
             <p>Home page {count}</p>
+            <button onClick={()=>notify('this is notification')}>Show message</button>
             <button className="btn btn-success" onClick={this.btnIncrementConter}>Counter++</button>
             <button className="btn btn-danger" onClick={this.btnDecrementConter}>Counter--</button>
             </div>
