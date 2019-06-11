@@ -18,7 +18,7 @@ class Home extends Component {
 
      btnIncrementConter=(e)=>{
         e.preventDefault();
-        this.props.dispatch({type:"INCREMENT"})
+        this.props.dispatch({type:'INCREMENT'})
         console.log('Hello click');
         
      }
