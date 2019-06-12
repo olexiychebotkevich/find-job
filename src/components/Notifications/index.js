@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ee from 'event-emitter';
 const Container =styled.div`
-background-color:#444;
+background-color:${props=>props.color};
 color:white;
 padding:16px;
 position:absolute;
@@ -17,24 +17,26 @@ transition: top 0.5s ease;
 
 const emitter = new ee();
 
-export const notify=(msg)=>{
-    emitter.emit('notification',msg,true);
+export const notify=(msg,color)=>{
+    emitter.emit('notification',msg,color);
 }
 
 export default class Notifications extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            top:-100
+            top:-100,
+            msg:'',
+            color:"#444"
         };
-        emitter.on('notification',(msg)=>{
-            this.showNotification(msg);
+        emitter.on('notification',(msg,color)=>{
+            this.showNotification(msg,color);
         });
         
     }
 
-    showNotification=()=>{
-        this.setState({top:16},
+    showNotification=(msg,color)=>{
+        this.setState({top:16,msg:msg,color:color},
         ()=>{
          setTimeout(()=>{
              this.setState({top:-100});
@@ -48,7 +50,7 @@ export default class Notifications extends React.Component{
         return(
        <React.Fragment>
            
-        <Container top={top}>Hello World<i className="fa fa-bell"></i></Container>
+        <Container top={top} color={this.state.color}>{this.state.msg}<i className="fa fa-bell"></i></Container>
       </React.Fragment>
       );
     }
